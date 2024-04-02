@@ -9,7 +9,8 @@ import streamlit as st
 import pandas as pd
 import joblib
 import numpy as np
-
+import json
+from sklearn.ensemble import RandomForestClassifier
 def main():
     
     html_temp="""
@@ -24,7 +25,20 @@ def main():
 
 </style>
 """
-    Model=joblib.load('bank_churn_model_final')
+    with open('bank_churn_model_final.json', 'r') as json_file:
+        model_params = json.load(json_file)
+    X_train_df = pd.read_csv('X_train.csv')
+    y_train_df = pd.read_csv('y_train.csv')
+
+# Prepare data
+    X_train = X_train_df.values  # Convert dataframe to numpy array
+    y_train = y_train_df.values.ravel()   
+# Create a new RandomForestClassifier instance using the loaded parameters
+    Model = RandomForestClassifier(n_estimators=model_params['n_estimators'], 
+                                       random_state=model_params['random_state'])
+   # Model=joblib.load('bank_churn_model_final')
+   # Model=joblib.load('bank_churn_model_final.json')
+    Model.fit(X_train,y_train)
     st.markdown(html_temp,unsafe_allow_html=True) 
     st.write('')
     st.write('')
