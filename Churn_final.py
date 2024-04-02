@@ -25,10 +25,10 @@ def main():
 
 </style>
 """
-    with open('streamlit\\bank_churn_model_final.json', 'r') as json_file:
+    with open('streamlit\\bank_churn_model_final54.json', 'r') as json_file:
         model_params = json.load(json_file)
-    X_train_df = pd.read_csv('datasei\\X_train.csv')
-    y_train_df = pd.read_csv('datasei\\y_train.csv')
+    X_train_df = pd.read_csv('dataset\\X_train.csv')
+    y_train_df = pd.read_csv('dataset\\y_train.csv')
 
 # Prepare data
     X_train = X_train_df.values  # Convert dataframe to numpy array
